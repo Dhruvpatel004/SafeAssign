@@ -26,7 +26,7 @@ const LoginPage = () => {
       console.log(loggedIn)
 
       if(loggedIn){
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       console.error("Login status check failed:", error);

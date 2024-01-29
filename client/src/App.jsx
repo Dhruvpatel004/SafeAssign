@@ -12,10 +12,6 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <>Login Done</>,
-  },
-  {
-    path: "/dashboard",
     element: <Dashboard/>,
   },
   {
