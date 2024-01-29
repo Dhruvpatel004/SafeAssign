@@ -1,4 +1,3 @@
-<<<<<<< HEAD:client/src/pages/Login.jsx
 // src/components/LoginPage.js
 import React, { useState, useEffect } from 'react';
 import wavingHandGif from '../assets/img/Hi.gif';
@@ -126,5 +125,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-=======
->>>>>>> e17b04d0bea165a617782507af5c911fd6b5d0a0:src/pages/Login.jsx
+
