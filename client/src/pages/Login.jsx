@@ -4,8 +4,37 @@ import wavingHandGif from '../assets/img/Hi.gif';
 import logoImage from '../assets/img/logo_SafeAssign.png';
 import sideImage from '../assets/img/background/auth_background_design.jpg';
 import googleLogo from '../assets/img/google.png';
+import {  useNavigate,Link } from "react-router-dom";
+import axios from "axios";
+
 
 const LoginPage = () => {
+
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is logged in when the component mounts
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/check-login",{ withCredentials: true });
+      const { loggedIn} = response.data;
+
+      console.log(loggedIn)
+
+      if(loggedIn){
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error("Login status check failed:", error);
+    }
+  };
+  
+
+
   const [messages, setMessages] = useState([
     'Welcome to our login page!',
     'Sign in to access your account.',
@@ -107,17 +136,14 @@ const LoginPage = () => {
         {/* Google Login Form Box */}
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
           {/* Google Login Button */}
-          <button
+          <Link
             className="w-full py-2 px-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue flex items-center justify-center"
-            onClick={() => {
-              // Handle Google login
-              console.log('Perform Google login');
-            }}
+           to="http://localhost:5000/auth/google"
           >
             {/* Set the path for the Google logo */}
             <img src={googleLogo} alt="Google Logo" className="mr-2 h-6" />
             Login with Google
-          </button>
+          </Link>
         </div>
       </div>
     </div>
