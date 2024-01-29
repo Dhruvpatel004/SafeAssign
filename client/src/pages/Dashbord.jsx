@@ -15,6 +15,7 @@ const Dashboard = () => {
   const style = {
     position: "bottom-center",
     theme: "dark",
+    autoClose: 1000, // Time in milliseconds, set to 1000 for 1 second
   };
   useEffect(() => {
     // Check if the user is logged in when the component mounts
@@ -45,7 +46,10 @@ const Dashboard = () => {
       const response = await axios.get('http://localhost:5000/logout', {
         withCredentials: true
       });
-      setProgress(70);
+      setTimeout(() => {
+        
+        setProgress(70);
+      }, 500);
       if (response.data.status === 'success') {
         sLogout()
       setProgress(80);
@@ -54,7 +58,7 @@ const Dashboard = () => {
         
           setProgress(100);
           navigate('/login');
-        }, 500);
+        }, 1000);
 
       }
     } catch (error) {
@@ -64,7 +68,7 @@ const Dashboard = () => {
 
 
   const sLogout = () => toast.success("Logout Successful", style);
-  const nLogout = () => toast.success("Failled to Logout", style);
+  const nLogout = () => toast.warning("Failled to Logout", style);
 
 
   return (
@@ -75,6 +79,7 @@ const Dashboard = () => {
         onLoaderFinished={() => setProgress(0)}
         style={{ zIndex: 9999 }}
       />
+       <ToastContainer />
     <div className="container mx-auto px-4 py-8">
       {user ? (
         <div className="flex flex-col items-center">
