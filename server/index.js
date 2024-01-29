@@ -10,20 +10,17 @@ const corsOptions = {
   app.use(cors(corsOptions));
 const dotenv = require("dotenv");
 dotenv.config();
-const {APP_PORT} = process.env;
+const {APP_PORT,clientid,clientsecret} = process.env;
 const connectToMongo=require('./db');
 connectToMongo();
 const mongoose = require("mongoose");
-// const chalk = require("chalk");
-// const bodyParser = require("body-parser");
+
+
 const session = require("express-session");
 const passport = require("passport");
 const OAuth2Strategy = require("passport-google-oauth2").Strategy;
 const userdb = require("./models/UserSchema.js")
-// const jwt = require('jsonwebtoken');
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
@@ -32,8 +29,7 @@ app.use(session({
     saveUninitialized:true
 }))
 
-const clientid = "676725411899-92v3gpdc7kgv15mpfdmksaholvgi13jf.apps.googleusercontent.com"
-const clientsecret = "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"
+
 // setuppassport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -119,10 +115,10 @@ const isAuthenticated = (req, res, next) => {
 };
 app.get("/api/check-login", (req, res) => {
     if (req.isAuthenticated()) {
-        console.log("User login check")
+        // console.log("User login check")
       res.json({ loggedIn: true, user: req.user });
     } else {
-        console.log("User no  login check")
+        // console.log("User no  login check")
 
       res.json({ loggedIn: false });
     }
