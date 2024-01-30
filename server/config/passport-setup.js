@@ -3,7 +3,7 @@ const {CLIENT_ID,CLIENT_SECRET} = process.env;
 const passport = require("passport");
   
 const OAuth2Strategy = require("passport-google-oauth2").Strategy;
-const userdb = require("./models/UserSchema.js")
+const userdb = require("../models/UserSchema.js")
 
 
 passport.use(

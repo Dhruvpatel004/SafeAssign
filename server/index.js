@@ -9,14 +9,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
   
-const dotenv = require("dotenv");
-dotenv.config()
-const connectToMongo=require('./db');
-connectToMongo();
+require("dotenv").config();
+require('./config/db');
 const mongoose = require("mongoose");
   
-const passport = require('./passport-setup');
-const userdb = require("./models/UserSchema.js")
+const passport = require('./config/passport-setup');
+
 const {APP_PORT,CLIENT_URL} = process.env;
 const isAuthenticated = require('./middleware/authMiddleware'); // Import the middleware
 
@@ -46,19 +44,16 @@ app.get("/auth/google/callback",passport.authenticate("google",{
 
 
 
-
+//Route 2 : To check whether a user is logged in when a page loads 
 app.get("/api/check-login", (req, res) => {
     if (req.isAuthenticated()) {
-        // console.log("User login check")
       res.json({ loggedIn: true, user: req.user });
     } else {
-        // console.log("User no  login check")
-
       res.json({ loggedIn: false });
     }
   });
 
-
+//Route 3 : To Logout user if  user is logged 
 app.get("/logout", isAuthenticated, (req, res, next) => {
     req.logout(function (err) {
         if (err) {
