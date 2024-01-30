@@ -1,5 +1,7 @@
 import Dashboard from "./pages/dashbord";
-import Login from "./pages/login"
+import Login from "./pages/Login"
+import DocSimilarity from "./pages/DocSimilarity"
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Dashboard/>,
+  },
+  {
+    path: "/doc-similarity",
+    element: <DocSimilarity/>,
   },
   {
     path: "/*",

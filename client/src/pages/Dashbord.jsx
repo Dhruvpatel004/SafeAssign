@@ -63,13 +63,16 @@ const Dashboard = () => {
     } catch (error) {
       nLogout();
       setProgress(100);
-      toast.error('Failed to logout', style);
+      // toast.error('Failed to logout', style);
     }
   };
 
   const sLogout = () => toast.success('Logout Successful', style);
   const nLogout = () => toast.error('Failed to Logout', style);
 
+  const goToDocSimilarity = () => {
+    navigate('/doc-similarity');
+  };
   return (
     <>
       <LoadingBar
@@ -89,8 +92,14 @@ const Dashboard = () => {
             <p className='mt-4 text-lg'>{user.name}</p>
             <p className='text-gray-600'>{user.email}</p>
             <button
+              onClick={goToDocSimilarity}
+              className='mt-8 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow'
+            >
+              Go to DocSimilarity
+            </button>
+            <button
               onClick={handleLogout}
-              className='mt-8 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow'
+              className='mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow'
             >
               Logout
             </button>
