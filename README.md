@@ -50,6 +50,16 @@ Replace your-mongodb-url, your-client-id, and your-client-secret with the approp
 nodemon
 ```
 
+## To Run both server in one command
+1. Install concurrently dependencies:
+```bash
+npm install --save-dev concurrently
+```
+2. To start Both server :
+```bash
+npm start
+```
+
 ## Usage
 
 [Provide instructions on how to use your project]
