@@ -85,6 +85,7 @@ const Dashboard = () => {
           <div className='flex flex-col items-center'>
             <p className='text-lg font-semibold'>User is logged in</p>
             <img src={user.image} alt='Profile' className='w-32 h-32 rounded-full mt-4' />
+            
             <p className='mt-4 text-lg'>{user.name}</p>
             <p className='text-gray-600'>{user.email}</p>
             <button
