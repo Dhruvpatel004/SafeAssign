@@ -1,5 +1,5 @@
 {
-  "name": "my-project",
+  "name": "SafeAssign",
   "private": true,
   "workspaces": [
     "client",
