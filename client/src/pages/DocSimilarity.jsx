@@ -15,6 +15,7 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   useEffect(() => {
     checkLoginStatus();
   }, []);
@@ -28,9 +29,9 @@ const App = () => {
           withCredentials: true,
         }
       );
-      setTimeout(() => {
-        setProgress(60);
-      }, 300);
+      await wait(300);
+
+      setProgress(60);
       const { loggedIn, user } = response.data;
       setProgress(100);
       if (loggedIn) {
@@ -67,14 +68,15 @@ const App = () => {
 
   const calculateSimilarity = async () => {
     setLoading(true);
-
+    setProgress(20);
     const formData = new FormData();
     formData.append("threshold", threshold);
     files.forEach((file) => {
       formData.append("files", file);
     });
-
+    setProgress(30);
     try {
+    setProgress(60);
       const response = await axios.post(
         "http://127.0.0.1:8080/document-similarity",
         formData,
@@ -84,12 +86,17 @@ const App = () => {
           },
         }
       );
+    setProgress(70);
 
       setResults(response.data.result_data);
     } catch (error) {
+    setProgress(50);
+
       console.error("Error:", error);
       alert("Error occurred while processing the files.");
     } finally {
+    setProgress(100);
+
       setLoading(false);
     }
   };
@@ -112,10 +119,10 @@ const App = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   };
   const goBackToDashboard = () => {
-    navigate('/');
+    navigate("/");
   };
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen">
+    <>
       <LoadingBar
         color="#f11946"
         height={3}
@@ -124,125 +131,134 @@ const App = () => {
         style={{ zIndex: 9999 }}
       />
       <ToastContainer />
-      <h1 className="text-3xl font-bold mb-4">Document Similarity Detection</h1>
-      <button
-        onClick={goBackToDashboard}
-        className='mt-8 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow'
-      >
-        Go back to Dashboard
-      </button>
-      <div
-        className="drop-area border border-dashed border-gray-400 p-4 text-center cursor-pointer bg-gray-100 my-4 rounded-lg"
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-      >
-        <input
-          type="file"
-          id="file-input"
-          className="file-input hidden"
-          multiple
-          onChange={handleFileChange}
-        />
-        <label htmlFor="file-input">
-          <p>Drag & Drop files or click to select</p>
-        </label>
-      </div>
 
-      <div className="controls mb-4">
-        <label className="threshold-label flex items-center">
-          Similarity Threshold:
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={threshold}
-            onChange={handleThresholdChange}
-            className="ml-2"
-          />
-          {threshold.toFixed(2)}
-        </label>
-      </div>
+      {user && (
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen">
+          <h1 className="text-3xl font-bold mb-4">
+            Document Similarity Detection
+          </h1>
+          <button
+            onClick={goBackToDashboard}
+            className="mt-8 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow"
+          >
+            Go back to Dashboard
+          </button>
+          <div
+            className="drop-area border border-dashed border-gray-400 p-4 text-center cursor-pointer bg-gray-100 my-4 rounded-lg"
+            onDrop={handleDrop}
+            onDragOver={(e) => e.preventDefault()}
+          >
+            <input
+              type="file"
+              id="file-input"
+              className="file-input hidden"
+              multiple
+              onChange={handleFileChange}
+            />
+            <label htmlFor="file-input">
+              <p>Drag & Drop files or click to select</p>
+            </label>
+          </div>
 
-      {files.length > 0 && (
-        <div className="mb-4 w-full max-w-lg">
-          <h2 className="mb-2">Uploaded Files:</h2>
-          <ul className="file-list border border-gray-300 rounded-lg p-2">
-            {files.map((file, index) => (
-              <li
-                key={index}
-                className="file-item flex justify-between items-center py-1"
-              >
-                <span>
-                  {file.name} - Size: {formatBytes(file.size)}
-                </span>
-                <button
-                  className="text-red-600 bg-transparent border border-solid border-red-500 rounded px-2 py-1 transition duration-300 ease-in-out hover:bg-red-500 hover:text-white"
-                  onClick={() => cancelUpload(index)}
-                >
-                  Cancel
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="controls mb-4">
+            <label className="threshold-label flex items-center">
+              Similarity Threshold:
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={threshold}
+                onChange={handleThresholdChange}
+                className="ml-2"
+              />
+              {threshold.toFixed(2)}
+            </label>
+          </div>
+
+          {files.length > 0 && (
+            <div className="mb-4 w-full max-w-lg">
+              <h2 className="mb-2">Uploaded Files:</h2>
+              <ul className="file-list border border-gray-300 rounded-lg p-2">
+                {files.map((file, index) => (
+                  <li
+                    key={index}
+                    className="file-item flex justify-between items-center py-1"
+                  >
+                    <span>
+                      {file.name} - Size: {formatBytes(file.size)}
+                    </span>
+                    <button
+                      className="text-red-600 bg-transparent border border-solid border-red-500 rounded px-2 py-1 transition duration-300 ease-in-out hover:bg-red-500 hover:text-white"
+                      onClick={() => cancelUpload(index)}
+                    >
+                      Cancel
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {results.length > 0 && (
+            <div className="mb-4 w-full max-w-lg">
+              <h2 className="mb-2">Comparison Results:</h2>
+              <table className="full-table border-collapse border border-gray-300 rounded-lg">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="border border-gray-300 px-4 py-2">
+                      File Name
+                    </th>
+                    <th className="border border-gray-300 px-4 py-2">
+                      Copied From
+                    </th>
+                    <th className="border border-gray-300 px-4 py-2">
+                      Average Similarity
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.map((result, resultIndex) => (
+                    <tr key={resultIndex} className="border border-gray-300">
+                      <td className="border border-gray-300 px-4 py-2">
+                        {result.file_name}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        <ul>
+                          {result.results.map((docResult, docIndex) => (
+                            <li key={docIndex}>
+                              {docResult.file_name}:{" "}
+                              {docResult.similarity.toFixed(4)}
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        {result.average_similarity.toFixed(4)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {loading && (
+            <div className="overlay fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
+              <Hourglass
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="hourglass-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                colors={["#306cce", "#72a1ed"]}
+              />
+            </div>
+          )}
         </div>
       )}
-
-      {results.length > 0 && (
-        <div className="mb-4 w-full max-w-lg">
-          <h2 className="mb-2">Comparison Results:</h2>
-          <table className="full-table border-collapse border border-gray-300 rounded-lg">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 px-4 py-2">File Name</th>
-                <th className="border border-gray-300 px-4 py-2">
-                  Copied From
-                </th>
-                <th className="border border-gray-300 px-4 py-2">
-                  Average Similarity
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((result, resultIndex) => (
-                <tr key={resultIndex} className="border border-gray-300">
-                  <td className="border border-gray-300 px-4 py-2">
-                    {result.file_name}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    <ul>
-                      {result.results.map((docResult, docIndex) => (
-                        <li key={docIndex}>
-                          {docResult.file_name}:{" "}
-                          {docResult.similarity.toFixed(4)}
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {result.average_similarity.toFixed(4)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {loading && (
-        <div className="overlay fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
-          <Hourglass
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="hourglass-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            colors={["#306cce", "#72a1ed"]}
-          />
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

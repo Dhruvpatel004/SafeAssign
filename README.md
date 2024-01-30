@@ -49,8 +49,29 @@ Replace your-mongodb-url, your-client-id, and your-client-secret with the approp
 ```bash
 nodemon
 ```
+## Setup Flsk Api for NLP - Doc-similarity 
+1. Go to the server directory:
+```bash
+cd flaskApiNLP
+```
+2. Create a virtual environment (venv)
+```bash
+python -m venv myenv
+```
+3. Activate the virtual environment
+```bash
+myenv\Scripts\activate
+```
+4. Install Python packages listed in a requirements.txt in virtual environment
+```bash
+myenv\Scripts\activate
+```
+5. Start Flask Api server 
+```bash
+python app.py
+```
 
-## To Run both server in one command
+## To Run both server and client in one command
 1. Install concurrently dependencies:
 ```bash
 npm install --save-dev concurrently

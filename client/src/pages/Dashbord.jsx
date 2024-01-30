@@ -10,6 +10,8 @@ const Dashboard = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
+  const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const style = {
     position: 'bottom-center',
     theme: 'dark',
@@ -26,9 +28,8 @@ const Dashboard = () => {
       const response = await axios.get('http://localhost:5000/api/check-login', {
         withCredentials: true,
       });
-      setTimeout(() => {
-        setProgress(60);
-      }, 300);
+      wait(300);
+      setProgress(60);
       const { loggedIn, user } = response.data;
       setProgress(100);
       if (loggedIn) {
@@ -49,21 +50,22 @@ const Dashboard = () => {
       const response = await axios.get('http://localhost:5000/logout', {
         withCredentials: true,
       });
-      setTimeout(() => {
-        setProgress(70);
-      }, 500);
+
+
+
+      await wait(300);
       if (response.data.status === 'success') {
         sLogout();
-        setProgress(80);
-        setTimeout(() => {
-          setProgress(100);
-          navigate('/login');
-        }, 1000);
+        setProgress(60);
+        setProgress(100);
+        await wait(700);
+        navigate('/login');
+
       }
     } catch (error) {
       nLogout();
       setProgress(100);
-      // toast.error('Failed to logout', style);
+      toast.error('Failed to logout', style);
     }
   };
 
