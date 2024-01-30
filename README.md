@@ -6,7 +6,7 @@ SafeAssign : An E-earning management system with integrated document similarity 
 
 1. Clone the repository or Dowload this Folder in your pc :
 ```bash 
-git clone https://github.com/your-username/your-project.git
+git clone https://github.com/Dhruvpatel004/SafeAssign.git
 ```
 
 ## Setup Client side
