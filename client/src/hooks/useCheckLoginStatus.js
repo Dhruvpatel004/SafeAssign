@@ -14,20 +14,17 @@ const useCheckLoginStatus = () => {
           withCredentials: true,
         });
         const { loggedIn } = response.data;
-        if (loggedIn && location.pathname == '/login') {
-          navigate('/');
-        }
-        else {
+        if (!loggedIn && location.pathname !== '/login') {
           navigate('/login');
         }
       } catch (error) {
-        console.error('Login status check failed:', error);
+        // console.error('Login status check failed:', error);
         // Handle error here if needed
       }
     };
 
     checkLoginStatus();
-  }, [location.pathname, navigate]);
+  }, [location.pathname]);
 
   // No need to return anything from this custom hook
 };

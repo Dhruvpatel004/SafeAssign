@@ -1,5 +1,5 @@
 import Dashboard from "./pages/dashbord";
-import Login from "./pages/Login"
+import Login from "./pages/LoginPage"
 import DocSimilarity from "./pages/DocSimilarity"
 
 import {
