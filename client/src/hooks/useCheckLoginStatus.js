@@ -1,4 +1,4 @@
-// useCheckLoginStatus.js
+// hooks/useCheckLoginStatus.js
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,11 +10,14 @@ const useCheckLoginStatus = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/check-login`, {
+        const response = await axios.get(`${API_BASE_URL}/api/check-login`, {
           withCredentials: true,
         });
         const { loggedIn } = response.data;
-        if (!loggedIn && location.pathname !== '/login') { // Add condition to prevent redirect loop
+        if (loggedIn && location.pathname == '/login') {
+          navigate('/');
+        }
+        else {
           navigate('/login');
         }
       } catch (error) {
@@ -23,11 +26,10 @@ const useCheckLoginStatus = () => {
       }
     };
 
-    checkLoginStatus(); // Call the function immediately when component mounts
+    checkLoginStatus();
+  }, [location.pathname, navigate]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //will run this when user change the url
-  }, [location.pathname]); // Watch for changes in pathname
+  // No need to return anything from this custom hook
 };
 
 export default useCheckLoginStatus;
