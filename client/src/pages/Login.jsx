@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const checkLoginStatus = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/check-login",{ withCredentials: true });
+      const response = await axios.get(`${API_BASE_URL}/api/check-login`,{ withCredentials: true });
       const { loggedIn} = response.data;
 
       console.log(loggedIn)

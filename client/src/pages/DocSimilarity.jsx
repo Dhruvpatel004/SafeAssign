@@ -24,7 +24,7 @@ const App = () => {
     try {
       setProgress(20);
       const response = await axios.get(
-        "http://localhost:5000/api/check-login",
+        `${API_BASE_URL}/api/check-login`,
         {
           withCredentials: true,
         }
@@ -78,7 +78,7 @@ const App = () => {
     try {
     setProgress(60);
       const response = await axios.post(
-        "http://127.0.0.1:8080/document-similarity",
+        `${FLASK_BASE_URL}/document-similarity`,
         formData,
         {
           headers: {

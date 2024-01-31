@@ -25,7 +25,7 @@ const Dashboard = () => {
   const checkLoginStatus = async () => {
     try {
       setProgress(20);
-      const response = await axios.get('http://localhost:5000/api/check-login', {
+      const response = await axios.get(`${API_BASE_URL}/api/check-login`, {
         withCredentials: true,
       });
       wait(300);
@@ -47,7 +47,7 @@ const Dashboard = () => {
     try {
       setProgress(20);
       setProgress(40);
-      const response = await axios.get('http://localhost:5000/logout', {
+      const response = await axios.get(`${API_BASE_URL}/logout`, {
         withCredentials: true,
       });
 
