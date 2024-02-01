@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import { useNavigate } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
+import { ToastContainer, toast } from "react-toastify";
 function DashboardComponent({user}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Set the initial state to true
 
@@ -8,13 +11,73 @@ function DashboardComponent({user}) {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleLogout = async () => {
+    try {
+      setProgress(20);
+      setProgress(40);
+      const response = await axios.get(`${API_BASE_URL}/logout`, {
+        withCredentials: true,
+      });
+
+      await wait(300);
+      if (response.data.status === "success") {
+        sLogout();
+        setProgress(60);
+        setProgress(100);
+        await wait(700);
+        navigate("/login");
+      }
+    } catch (error) {
+      nLogout();
+      setProgress(100);
+      toast.error("Failed to logout", style);
+    }
+  };
+
+  const sLogout = () => toast.success("Logout Successful", style);
+  const nLogout = () => toast.error("Failed to Logout", style);
+
+  const goToDocSimilarity = () => {
+    navigate("/doc-similarity");
+  };
+
+
+
   return (
     <>
       <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} user={user}/>
       <Sidebar isSidebarOpen={isSidebarOpen} />
 
       <div class="p-4 sm:ml-64">
-          Hello This is Dashbord , Here Main Div Start
+      <div className="container mx-auto px-4 py-8 dark:bg-gray-800">
+        {user && (
+          <div className="flex flex-col items-center">
+            <p className="text-lg font-semibold dark:text-white">
+              User is logged in
+            </p>
+            <img
+              src={user.image}
+              alt="Profile"
+              className="w-32 h-32 rounded-full mt-4"
+            />
+
+            <p className="mt-4 text-lg dark:text-white">{user.name}</p>
+            <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
+            <button
+              onClick={goToDocSimilarity}
+              className="mt-8 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow dark:bg-blue-600"
+            >
+              Go to DocSimilarity
+            </button>
+            <button
+              onClick={handleLogout}
+              className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow dark:bg-red-600"
+            >
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
       </div>
     </>
   );
