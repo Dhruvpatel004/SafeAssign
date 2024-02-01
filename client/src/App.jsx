@@ -1,4 +1,4 @@
-import Dashboard from "./pages/dashbord";
+import Dashboard from './pages/Dashbord';
 import Login from "./pages/LoginPage"
 import DocSimilarity from "./pages/DocSimilarity"
 

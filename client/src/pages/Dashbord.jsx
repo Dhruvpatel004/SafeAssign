@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '../components/dashboard/Navbar';
+import DashboardComponent from '../components/dashboard/DashboardComponent';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -85,6 +87,7 @@ const Dashboard = () => {
         style={{ zIndex: 9999 }}
       />
       <ToastContainer />
+      <DashboardComponent/>
       <div className='container mx-auto px-4 py-8'>
         {user && (
           <div className='flex flex-col items-center'>
