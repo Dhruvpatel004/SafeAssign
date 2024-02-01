@@ -4,6 +4,7 @@ import UserProfile from "./UserProfile";
 import ToggleSidebar from "./ToggleSidebar";
 import TitleAndLogo from "./TitleAndLogo";
 
+
 function Navbar({ toggleSidebar, isSidebarOpen,user }) {
   return (
     <>
@@ -16,6 +17,7 @@ function Navbar({ toggleSidebar, isSidebarOpen,user }) {
               isSidebarOpen={isSidebarOpen}
             />
             <TitleAndLogo />
+      
             <UserProfile user={user}/>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import DarkModeToggle from "./DarkModeToggle";
 
 function UserProfile({ user }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -25,6 +26,7 @@ function UserProfile({ user }) {
 
   return (
     <div className="flex items-center">
+            <DarkModeToggle/>
       {user && (
         <div className="flex items-center ms-3 relative" ref={profileRef}>
           <div style={{ marginRight: "10px" }}>
