@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-function DashboardComponent() {
+function DashboardComponent({user}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Set the initial state to true
 
   const toggleSidebar = () => {
@@ -10,7 +10,7 @@ function DashboardComponent() {
 
   return (
     <>
-      <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} user={user}/>
       <Sidebar isSidebarOpen={isSidebarOpen} />
 
       <div class="p-4 sm:ml-64">

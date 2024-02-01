@@ -87,7 +87,7 @@ const Dashboard = () => {
         style={{ zIndex: 9999 }}
       />
       <ToastContainer />
-      <DashboardComponent/>
+      <DashboardComponent user={user}/>
       <div className='container mx-auto px-4 py-8'>
         {user && (
           <div className='flex flex-col items-center'>
