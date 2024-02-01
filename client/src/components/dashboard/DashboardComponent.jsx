@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
-import LoadingBar from "react-top-loading-bar";
-import { ToastContainer, toast } from "react-toastify";
-function DashboardComponent({user}) {
+import {toast } from "react-toastify";
+function DashboardComponent({user,setProgress}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Set the initial state to true
+  const navigate = useNavigate();
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const style = {
+    position: "bottom-center",
+    theme: "dark",
+    autoClose: 1000, // Time in milliseconds, set to 1000 for 1 second
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -28,9 +34,9 @@ function DashboardComponent({user}) {
         navigate("/login");
       }
     } catch (error) {
+  
+      // toast.error("Failed to logout", style);
       nLogout();
-      setProgress(100);
-      toast.error("Failed to logout", style);
     }
   };
 
@@ -48,7 +54,9 @@ function DashboardComponent({user}) {
       <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} user={user}/>
       <Sidebar isSidebarOpen={isSidebarOpen} />
 
-      <div class="p-4 sm:ml-64">
+      <div className="p-4 sm:ml-64">
+
+        
       <div className="container mx-auto px-4 py-8 dark:bg-gray-800">
         {user && (
           <div className="flex flex-col items-center">
