@@ -57,7 +57,7 @@ const Dashboard = () => {
         style={{ zIndex: 9999 }}
       />
       <ToastContainer />
-      <DashboardComponent user={user} />
+      <DashboardComponent user={user}setProgress={setProgress} />
 
     </>
   );

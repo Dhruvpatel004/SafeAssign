@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
+import axios from "axios";
+
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 import {toast } from "react-toastify";
@@ -34,7 +36,7 @@ function DashboardComponent({user,setProgress}) {
         navigate("/login");
       }
     } catch (error) {
-  
+  console.log(error);
       // toast.error("Failed to logout", style);
       nLogout();
     }
