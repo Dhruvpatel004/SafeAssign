@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
+
 
 
 import Classsromms from "../utils/Classsromms";
@@ -18,6 +20,9 @@ function DashboardComponent({ user, setProgress }) {
   const goToDocSimilarity = () => {
     navigate("/doc-similarity");
   };
+
+
+
 
 
   return (
