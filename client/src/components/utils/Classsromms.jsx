@@ -4,13 +4,17 @@ import GoogleClassroomCard from "./GoogleClassroomCard";
 
 function Classsromms() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const menuRef = useRef(null);
 
+    const [actionClass, setActionClass] = useState(null)
+
     
-  const toggleMenu = (e) => {
+  const toggleMenu = (e,index) => {
     const x = e.clientX;
     const y = e.clientY;
+    setActionClass(index);
 
     // Update the state with the calculated coordinates
     setMenuPosition({ x, y });
@@ -109,8 +113,9 @@ function Classsromms() {
           <li>
             <div
               to="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white hover:cursor-pointer"
               role="menuitem"
+              onClick={console.log(`Archived${actionClass}`)}
             >
               Archive
             </div>
@@ -118,8 +123,9 @@ function Classsromms() {
           <li>
             <div
               to="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white hover:cursor-pointer"
               role="menuitem"
+              onClick={console.log(`Unenroll ${actionClass}`)}
             >
               Unenroll
             </div>
@@ -131,6 +137,7 @@ function Classsromms() {
     {classData.map((classItem, index) => (
       <GoogleClassroomCard
         key={index}
+        index={index}
         title={classItem.title}
         description={classItem.description}
         teacher={classItem.teacher}
@@ -139,6 +146,7 @@ function Classsromms() {
         toggleMenu={toggleMenu}
         menuRef={menuRef}
         setMenuPosition={setMenuPosition}
+        setActionClass={setActionClass}
       />
     ))}
   </div>

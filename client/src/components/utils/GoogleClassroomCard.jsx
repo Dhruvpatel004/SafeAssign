@@ -3,7 +3,9 @@ import "./classa.css";
 import sideImage from "../../assets/img/background/auth_background_design.jpg";
 import googleLogo from "../../assets/img/google.png";
 
-const GoogleClassroomCard = ({ title, description, teacher, students, classCode ,menuRef,toggleMenu,setMenuPosition}) => {
+const GoogleClassroomCard = ({ index,title, description, teacher, students, classCode ,menuRef,toggleMenu,setActionClass}) => {
+
+
 
 
 
@@ -13,7 +15,7 @@ const GoogleClassroomCard = ({ title, description, teacher, students, classCode 
       <div className="card__img relative">
         <img src={sideImage} alt="Card Image" />
 
-        <div className="card__menu absolute top-0 right-0 z-10 p-2" onClick={toggleMenu} ref={menuRef}>
+        <div className="card__menu absolute top-0 right-0 z-10 p-2" onClick={(e)=>toggleMenu(e,index)} ref={menuRef}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -27,13 +29,15 @@ const GoogleClassroomCard = ({ title, description, teacher, students, classCode 
         </div>
 
   
-        <div className="card__title">Web Development</div>
-        <div className="card__subtitle">Cameron Williamson</div>
+        <div className="card__title">{title}</div>
+        <div className="card__subtitle">{teacher}</div>
       </div>
       <div className="card__avatar">
         <img src={googleLogo} alt="Avatar" />
       </div>
-      <div className="card__wrapper"></div>
+      <div className="card__wrapper">
+       
+      </div>
     </div>
   );
 };
