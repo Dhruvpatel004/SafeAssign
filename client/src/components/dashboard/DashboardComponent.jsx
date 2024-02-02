@@ -1,65 +1,124 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import axios from "axios";
 
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
-import {toast } from "react-toastify";
-function DashboardComponent({user,setProgress}) {
+import { toast } from "react-toastify";
+import GoogleClassroomCard from "../utils/GoogleClassroomCard";
+function DashboardComponent({ user, setProgress }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Set the initial state to true
   const navigate = useNavigate();
-  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  const style = {
-    position: "bottom-center",
-    theme: "dark",
-    autoClose: 1000, // Time in milliseconds, set to 1000 for 1 second
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  const menuRef = useRef(null);
+
+  const toggleMenu = (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+
+    // Update the state with the calculated coordinates
+    setMenuPosition({ x, y });
+    e.stopPropagation();
+    setIsMenuOpen(!isMenuOpen);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  const handleLogout = async () => {
-    try {
-      setProgress(20);
-      setProgress(40);
-      const response = await axios.get(`${API_BASE_URL}/logout`, {
-        withCredentials: true,
-      });
-
-      await wait(300);
-      if (response.data.status === "success") {
-        sLogout();
-        setProgress(60);
-        setProgress(100);
-        await wait(700);
-        navigate("/login");
-      }
-    } catch (error) {
-  console.log(error);
-      // toast.error("Failed to logout", style);
-      nLogout();
-    }
-  };
-
-  const sLogout = () => toast.success("Logout Successful", style);
-  const nLogout = () => toast.error("Failed to Logout", style);
 
   const goToDocSimilarity = () => {
     navigate("/doc-similarity");
   };
 
-
+  const classData = [
+    {
+      title: "Mathematics - Grade 10",
+      description:
+        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
+      teacher: "Mr. Smith",
+      students: 30,
+      classCode: "ABC123",
+    },
+    {
+      title: "English Literature - Grade 11",
+      description: "Exploring classic literature and modern literary works.",
+      teacher: "Ms. Johnson",
+      students: 25,
+      classCode: "DEF456",
+    },
+    {
+      title: "Mathematics - Grade 10",
+      description:
+        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
+      teacher: "Mr. Smith",
+      students: 30,
+      classCode: "ABC123",
+    },
+    {
+      title: "English Literature - Grade 11",
+      description: "Exploring classic literature and modern literary works.",
+      teacher: "Ms. Johnson",
+      students: 25,
+      classCode: "DEF456",
+    },
+    {
+      title: "Mathematics - Grade 10",
+      description:
+        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
+      teacher: "Mr. Smith",
+      students: 30,
+      classCode: "ABC123",
+    },
+    {
+      title: "English Literature - Grade 11",
+      description: "Exploring classic literature and modern literary works.",
+      teacher: "Ms. Johnson",
+      students: 25,
+      classCode: "DEF456",
+    },
+    {
+      title: "Mathematics - Grade 10",
+      description:
+        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
+      teacher: "Mr. Smith",
+      students: 30,
+      classCode: "ABC123",
+    },
+    {
+      title: "English Literature - Grade 11",
+      description: "Exploring classic literature and modern literary works.",
+      teacher: "Ms. Johnson",
+      students: 25,
+      classCode: "DEF456",
+    },
+    // Add more class data as needed
+  ];
 
   return (
     <>
-      <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} user={user}/>
+      <Navbar
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        user={user}
+        setProgress={setProgress}
+      />
       <Sidebar isSidebarOpen={isSidebarOpen} />
 
       <div className="p-4 sm:ml-64">
-
-        
-      <div className="container mx-auto px-4 py-8 dark:bg-gray-800">
+        {/* <div className="container mx-auto px-4 py-8 dark:bg-gray-800">
         {user && (
           <div className="flex flex-col items-center">
             <p className="text-lg font-semibold dark:text-white">
@@ -87,7 +146,52 @@ function DashboardComponent({user,setProgress}) {
             </button>
           </div>
         )}
-      </div>
+      </div> */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+          {isMenuOpen && (
+            <div
+              className="z-50 absolute  mt-2 w-30 bg-white rounded shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
+           
+              style={{ top: menuPosition.y, right: window.innerWidth - menuPosition.x }}
+            >
+              <ul className="py-1" role="none">
+                <li>
+                  <div
+                    to="#"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem"
+                  >
+                    Archive
+                  </div>
+                </li>
+                <li>
+                  <div
+                    to="#"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                    role="menuitem"
+                  >
+                    Unenroll
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          )}
+          {classData.map((classItem, index) => (
+            <GoogleClassroomCard
+              key={index}
+              title={classItem.title}
+              description={classItem.description}
+              teacher={classItem.teacher}
+              students={classItem.students}
+              classCode={classItem.classCode}
+              toggleMenu={toggleMenu}
+              menuRef={menuRef}
+              setMenuPosition={setMenuPosition}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

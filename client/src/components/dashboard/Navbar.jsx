@@ -5,7 +5,7 @@ import ToggleSidebar from "./ToggleSidebar";
 import TitleAndLogo from "./TitleAndLogo";
 
 
-function Navbar({ toggleSidebar, isSidebarOpen,user }) {
+function Navbar({ toggleSidebar, isSidebarOpen,user,setProgress }) {
   return (
     <>
       {/* <Sidebar/> */}
@@ -18,7 +18,7 @@ function Navbar({ toggleSidebar, isSidebarOpen,user }) {
             />
             <TitleAndLogo />
       
-            <UserProfile user={user}/>
+            <UserProfile user={user} setProgress={setProgress}/>
           </div>
         </div>
       </nav>
