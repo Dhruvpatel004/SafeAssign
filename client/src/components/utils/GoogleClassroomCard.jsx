@@ -1,6 +1,9 @@
 import React, { useState ,useEffect} from "react";
 import "./classa.css";
-import sideImage from "../../assets/img/background/auth_background_design.jpg";
+import Honors from "../../assets/Honors.jpg";
+import img_bookclub from "../../assets/img_bookclub.jpg";
+import img_breakfast from "../../assets/img_breakfast.jpg";
+
 import googleLogo from "../../assets/img/google.png";
 
 const GoogleClassroomCard = ({ index,title, description, teacher, students, classCode ,menuRef,toggleMenu,setActionClass}) => {
@@ -13,7 +16,7 @@ const GoogleClassroomCard = ({ index,title, description, teacher, students, clas
   return (
     <div className="card hover:cursor-pointer" onClick={() => console.log("Card clicked")}>
       <div className="card__img relative">
-        <img src={sideImage} alt="Card Image" />
+        <img src={img_bookclub} alt="Card Image" />
 
         <div className="card__menu absolute top-0 right-0 z-10 p-2" onClick={(e)=>toggleMenu(e,index)} ref={menuRef}>
           <svg
