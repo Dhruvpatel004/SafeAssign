@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import Navbar from "./Navbar";
 
 import Sidebar from "./Sidebar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Outlet } from "react-router-dom";
 import axios from "axios"
 
 
@@ -65,7 +65,8 @@ function DashboardComponent({ user, setProgress }) {
           </div>
         )}
       </div> */}
-<Classsromms/>
+{/* <Classsromms/> */}
+<Outlet/>
       </div>
     </>
   );

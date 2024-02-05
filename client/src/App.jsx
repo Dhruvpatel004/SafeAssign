@@ -1,11 +1,13 @@
 import Dashboard from './pages/Dashbord';
 import Login from "./pages/LoginPage"
 import DocSimilarity from "./pages/DocSimilarity"
+import C from './components/classoom/C';
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Classsromms from './components/utils/Classsromms';
 
 const router = createBrowserRouter([
   {
@@ -15,10 +17,22 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Dashboard/>,
+    children: [
+      {
+        path: "/",
+        element: <Classsromms/>,
+      },
+      {
+        path: "c/",
+        element: <C/>,
+      },
+    ]
+
   },
   {
     path: "/doc-similarity",
     element: <DocSimilarity/>,
+
   },
   {
     path: "/*",
