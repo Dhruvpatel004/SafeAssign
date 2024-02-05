@@ -42,6 +42,7 @@ MONGO_URL=your-mongodb-url
 CLIENT_ID=your-client-id
 CLIENT_SECRET=your-client-secret
 CLIENT_URL=http://localhost:5173/
+
 ```
 Replace your-mongodb-url, your-client-id, and your-client-secret with the appropriate values for your application.
 
