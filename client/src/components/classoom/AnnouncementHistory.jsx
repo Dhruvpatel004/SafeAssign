@@ -1,4 +1,6 @@
 import React from 'react'
+import googleLogo from "../../assets/img/google.png";
+import pic from "./../../assets/Honors.jpg";
 
 function AnnouncementHistory() {
   return (
