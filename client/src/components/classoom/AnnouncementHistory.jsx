@@ -4,7 +4,7 @@ import pic from "./../../assets/Honors.jpg";
 
 function AnnouncementHistory() {
   return (
-    <div class="p-1 mt-5 mx-auto max-w-[1100px] text-left bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 relative">
+    <div class="p-2 mt-5 mx-auto max-w-[1100px] text-left bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 relative">
     <div class="mt-5 flex items-start gap-2.5">
       <img class="w-8 h-8 rounded-full" src={googleLogo} alt="Jese image" />
       <div class="flex flex-col w-full max-w-[600px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
