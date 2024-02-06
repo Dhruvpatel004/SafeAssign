@@ -35,7 +35,7 @@ function DashboardComponent({ user, setProgress }) {
       />
       <Sidebar isSidebarOpen={isSidebarOpen} />
 
-      <div className="p-4 sm:ml-64">
+      <div className="p-4  pt-0 sm:ml-64">
         {/* <div className="container mx-auto px-4 py-8 dark:bg-gray-800">
         {user && (
           <div className="flex flex-col items-center">
