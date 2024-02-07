@@ -19,7 +19,7 @@ function LoginForm() {
           {/* Google Login Button */}
           <Link
             className="w-full py-2 px-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue flex items-center justify-center"
-            to="http://localhost:5000/auth/google"
+            to="http://localhost:5001/auth/google"
           >
             {/* Set the path for the Google logo */}
             <img src={googleLogo} alt="Google Logo" className="mr-2 h-6" />

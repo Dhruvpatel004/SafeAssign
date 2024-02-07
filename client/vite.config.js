@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     replace({
       // Define your environment variables here
-      API_BASE_URL: JSON.stringify(process.env.API_BASE_URL || 'http://localhost:5000'),
+      API_BASE_URL: JSON.stringify(process.env.API_BASE_URL || 'http://localhost:5001'),
       FLASK_BASE_URL:JSON.stringify(process.env.API_BASE_URL || 'http://localhost:8080'),
 
     }),
