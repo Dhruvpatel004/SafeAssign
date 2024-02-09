@@ -65,7 +65,7 @@ myenv\Scripts\activate
 ```
 4. Install Python packages listed in a requirements.txt in virtual environment
 ```bash
-myenv\Scripts\activate
+pip install -r requirements.txt
 ```
 5. Start Flask Api server 
 ```bash
