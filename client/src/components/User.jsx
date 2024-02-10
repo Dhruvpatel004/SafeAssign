@@ -9,11 +9,11 @@ const UserDetails = () => {
     const fetchUserDetails = async () => {
       try {
         // Make a GET request to the API endpoint using Axios
-        const response = await axios.get(`${API_BASE_URL}/api/check-login`, {
+        const response = await axios.get(`${API_BASE_URL}/api/dashbord/getJoinedClass`, {
             withCredentials: true,
           });
         // Set user details in state
-        setUserDetails(response.data.user);
+        setUserDetails(response.data.classrooms);
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
@@ -28,8 +28,8 @@ const UserDetails = () => {
       <h2>User Details</h2>
       {userDetails ? (
         <div>
-          <p>Name: {userDetails.name}</p>
-          <p>Email: {userDetails.email}</p>
+          <p></p>
+          <p>{userDetails}</p>
           {/* Add additional user details as needed */}
         </div>
       ) : (

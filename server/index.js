@@ -37,6 +37,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+app.use(express.json());
+
+import dashbordRutes from './routes/dashbord.routes.js';
+
+app.use("/api/dashboard", dashbordRutes);
+
 // Route for User Login And registration with Google OAuth
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
