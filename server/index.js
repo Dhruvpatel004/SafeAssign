@@ -55,12 +55,12 @@ app.get("/api/check-login", (req, res) => {
 });
 
 // Route to get user details if authenticated
-app.get("/api/user-details", isAuthenticated, (req, res) => {
+app.get("/api/user-details", isAuthenticated, function (req, res) {
   res.json({ user: req.user });
 });
 
 // Route to logout user if logged in
-app.get("/logout", isAuthenticated, (req, res, next) => {
+app.get("/logout", isAuthenticated, (req, res,next) => {
   req.logout(function (err) {
     if (err) {
       return next(err);

@@ -5,6 +5,7 @@ import ToggleSidebar from "./ToggleSidebar";
 import TitleAndLogo from "./TitleAndLogo";
 
 
+
 function Navbar({ toggleSidebar, isSidebarOpen,user,setProgress }) {
   return (
     <>
@@ -17,7 +18,9 @@ function Navbar({ toggleSidebar, isSidebarOpen,user,setProgress }) {
               isSidebarOpen={isSidebarOpen}
             />
             <TitleAndLogo />
-      
+            <div className="flex items-center">
+            
+            </div>
             <UserProfile user={user} setProgress={setProgress}/>
           </div>
         </div>

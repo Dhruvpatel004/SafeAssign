@@ -2,9 +2,9 @@
 
 const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
-        return next();
+        next();
     } else {
-        res.status(401).json({ status: "error", message: "User not authenticated" });
+        res.status(401).json({ status: "401", message: "User not authenticated" });
     }
 };
 

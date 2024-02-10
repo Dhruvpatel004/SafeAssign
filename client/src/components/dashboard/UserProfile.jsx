@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 import axios from "axios"
+import ClassActionMenuButton from "./ClassActionMenuButton";
 
 function UserProfile({ user }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [showMenu, setShowMenu] = useState(false);
 
+
+  useEffect(() => {
+    setShowMenu(location.pathname === '/');
+  }, [location.pathname]);
   const toggleProfile = () => {
     setIsProfileOpen(!isProfileOpen);
   };
@@ -49,6 +56,8 @@ function UserProfile({ user }) {
 
   return (
     <div className="flex items-center">
+              {showMenu &&(<ClassActionMenuButton/>)}
+
       <DarkModeToggle />
       {user && (
         <div className="flex items-center ms-3 relative" ref={profileRef}>

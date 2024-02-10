@@ -102,7 +102,7 @@ function Classsromms() {
 
   return (
     
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
     {isMenuOpen && (
       <div
         className="z-50 absolute  mt-2 w-30 bg-white rounded shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
@@ -134,6 +134,8 @@ function Classsromms() {
         </ul>
       </div>
     )}
+  
+   
     {classData.map((classItem, index) => (
       <GoogleClassroomCard
         key={index}

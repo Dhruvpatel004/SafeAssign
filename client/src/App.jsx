@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Classsromms from './components/utils/Classsromms';
+import User from './components/User';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "c/",
         element: <C/>,
+      },
+      {
+        path: "user/",
+        element: <User/>,
       },
     ]
 

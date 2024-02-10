@@ -1,0 +1,22 @@
+.circle-btn {
+    /* width: 40px; */
+    /* height: 40px; */
+    background-color: #007bff; /* Default background color */
+    border-radius: 50%;
+    border:none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .circle-btn.dark {
+    background-color: #343a40; /* Dark background color */
+  }
+  
+  .plus {
+    line-height: 1;
+  }
+  
