@@ -1,67 +1,65 @@
-const express = require("express");
+// Import modules
+import express from "express";
+import session from "express-session";
+import cors from "cors";
+import dotenv from "dotenv";
+import './config/db.js';
+import passport from './config/passport-setup.js';
+import isAuthenticated from './middleware/authMiddleware.js';
+
+// Load environment variables
+dotenv.config();
+
+// Initialize Express app
 const app = express();
-const session = require("express-session");
-const cors = require("cors");
+
 // Apply CORS middleware with options
 const corsOptions = {
   origin: 'http://localhost:5173',
-  credentials: true  // Allow cookies to be sent with requests
+  credentials: true // Allow cookies to be sent with requests
 };
 app.use(cors(corsOptions));
 
-require("dotenv").config();
-require('./config/db');
-const mongoose = require("mongoose");
-
-const passport = require('./config/passport-setup');
-
+// Constants from environment variables
 const { APP_PORT, CLIENT_URL } = process.env;
-const isAuthenticated = require('./middleware/authMiddleware'); // Import the middleware
 
+// Body parsing middleware
 app.use(express.urlencoded({ extended: true }));
 
-// setup session
+// Setup session
 app.use(session({
   secret: "iDont545nowtheKey",
   resave: false,
   saveUninitialized: true
-}))
+}));
 
-
-// setuppassport
+// Setup Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
-//Route 1 : For User Login And registration
+// Route for User Login And registration with Google OAuth
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 app.get("/auth/google/callback", passport.authenticate("google", {
   successRedirect: `${CLIENT_URL}`,
   failureRedirect: `${CLIENT_URL}/login`
-}))
+}));
 
-
-
-//Route 2 : To check whether a user is logged in when a page loads 
+// Route to check whether a user is logged in when a page loads
 app.get("/api/check-login", (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ loggedIn: true ,user:req.user});
+    res.json({ loggedIn: true, user: req.user });
   } else {
     res.json({ loggedIn: false });
   }
 });
 
-
-
-app.get("/api/user-details", isAuthenticated,(req, res) => {
-
-    res.json({user:req.user});
-
+// Route to get user details if authenticated
+app.get("/api/user-details", isAuthenticated, (req, res) => {
+  res.json({ user: req.user });
 });
 
-//Route 3 : To Logout user if  user is logged 
+// Route to logout user if logged in
 app.get("/logout", isAuthenticated, (req, res, next) => {
   req.logout(function (err) {
     if (err) {
@@ -72,6 +70,8 @@ app.get("/logout", isAuthenticated, (req, res, next) => {
     res.json({ status: "success", message: "Logout successful" });
   });
 });
+
+// Start the server
 app.listen(APP_PORT, () => {
-  console.log(`Example app listening on port ${APP_PORT}`)
-})
+  console.log(`Example app listening on port ${APP_PORT}`);
+});
