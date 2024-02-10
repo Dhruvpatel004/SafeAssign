@@ -21,9 +21,10 @@ passport.use(
         if (!user) {
           user = new User({
             googleId: profile.id,
-            name: profile.displayName,
+            userName: profile.displayName,
             email: profile.emails[0].value,
-            image: profile.photos[0].value
+            avatar: profile.photos[0].value,
+            refreshToken:refreshToken
           });
 
           await user.save();

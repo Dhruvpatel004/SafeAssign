@@ -64,7 +64,7 @@ function UserProfile({ user }) {
               <span className="sr-only">Open user menu</span>
               <img
                 className="w-full h-full rounded-full"
-                src={user.image}
+                src={user.avatar}
                 alt="user photo"
               />
             </button>
@@ -76,7 +76,7 @@ function UserProfile({ user }) {
             >
               <div className="px-4 py-3" role="none">
                 <p className="text-sm text-gray-900 dark:text-white">
-                  {user.name}
+                  {user.userName}
                 </p>
                 <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300">
                   {user.email}

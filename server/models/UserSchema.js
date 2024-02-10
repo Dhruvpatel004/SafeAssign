@@ -3,26 +3,34 @@ import { Schema, model } from "mongoose";
 const UserSchema = new Schema({
     googleId: {
         type: String,
-        require: true
+        require: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
     },
-    name: {
+    userName: {
         type: String,
-        require: true
+        require: true,
+        unique: true,
+        trim: true,
     },
     email: {
         type: String,
         require: true,
-        unique: true
+        unique: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
     },
-    image: {
-        type: String,
+    avatar: {
+        type: String, // Google profile picture link
         require: true
     },
-    date: {
-        type: Date,
-        default: Date.now
-    },
+    refreshToken: {
+        type: String
+    }
 },{timestamps:true});
+
 
 
 const User = new model("User",UserSchema);
