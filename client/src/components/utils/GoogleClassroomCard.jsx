@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import googleLogo from "../../assets/img/google.png";
 
-const GoogleClassroomCard = ({ index,title, description, teacher, students, classCode ,menuRef,toggleMenu,setActionClass}) => {
+const GoogleClassroomCard = ({ data,index,menuRef,toggleMenu}) => {
 
 
   const navigate = useNavigate();
@@ -38,14 +38,18 @@ const GoogleClassroomCard = ({ index,title, description, teacher, students, clas
         </div>
 
   
-        <div className="card__title">{title}</div>
-        <div className="card__subtitle">{teacher}</div>
+        <div className="card__title">{data.classroomName}</div>
+        <div className="card__subtitle">{data.ownerName}</div>
       </div>
       <div className="card__avatar">
-        <img src={googleLogo} alt="Avatar" />
+        <img src={data.ownerAvatar} alt="Avatar" style={{borderRadius:"50px"}}/>
       </div>
-      <div className="card__wrapper">
-       
+      <div className="card__wrapper" onChange={(e)=>{    e.stopPropagation();}}>
+        <br />
+        <br />
+        <br />
+       <p >Class Code : {data.classroomID}</p>
+       <p>Role :{data.userRole}</p>
       </div>
     </div>
   );

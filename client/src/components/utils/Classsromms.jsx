@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import GoogleClassroomCard from "./GoogleClassroomCard";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 
 function Classsromms() {
@@ -36,72 +38,31 @@ function Classsromms() {
     };
   }, [menuRef]);
 
-  const classData = [
-    {
-      title: "Mathematics - Grade 10",
-      description:
-        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
-      teacher: "Mr. Smith",
-      students: 30,
-      classCode: "ABC123",
-    },
-    {
-      title: "English Literature - Grade 11",
-      description: "Exploring classic literature and modern literary works.",
-      teacher: "Ms. Johnson",
-      students: 25,
-      classCode: "DEF456",
-    },
-    {
-      title: "Mathematics - Grade 10",
-      description:
-        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
-      teacher: "Mr. Smith",
-      students: 30,
-      classCode: "ABC123",
-    },
-    {
-      title: "English Literature - Grade 11",
-      description: "Exploring classic literature and modern literary works.",
-      teacher: "Ms. Johnson",
-      students: 25,
-      classCode: "DEF456",
-    },
-    {
-      title: "Mathematics - Grade 10",
-      description:
-        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
-      teacher: "Mr. Smith",
-      students: 30,
-      classCode: "ABC123",
-    },
-    {
-      title: "English Literature - Grade 11",
-      description: "Exploring classic literature and modern literary works.",
-      teacher: "Ms. Johnson",
-      students: 25,
-      classCode: "DEF456",
-    },
-    {
-      title: "Mathematics - Grade 10",
-      description:
-        "This class focuses on fundamental concepts in mathematics for tenth-grade students.",
-      teacher: "Mr. Smith",
-      students: 30,
-      classCode: "ABC123",
-    },
-    {
-      title: "English Literature - Grade 11",
-      description: "Exploring classic literature and modern literary works.",
-      teacher: "Ms. Johnson",
-      students: 25,
-      classCode: "DEF456",
-    },
-    // Add more class data as needed
-  ];
+ 
+  const [classData, setClassData] = useState([]);
+
+  useEffect(() => {
+    // Function to fetch user details
+    const fetchClassDetails = async () => {
+      try {
+        // Make a GET request to the API endpoint using Axios
+        const response = await axios.get(`${API_BASE_URL}/api/dashboard/getJoinedClass`, {
+            withCredentials: true,
+          });
+        // Set user details in state
+        setClassData(response.data);
+  console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+
+    // Call the function to fetch user details
+    fetchClassDetails();
+  }, []); // Run once on component mount
 
   return (
-    
+   
     <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
     {isMenuOpen && (
       <div
@@ -135,16 +96,12 @@ function Classsromms() {
       </div>
     )}
   
-   
+  
     {classData.map((classItem, index) => (
       <GoogleClassroomCard
-        key={index}
+        key={classItem.classroomID}
         index={index}
-        title={classItem.title}
-        description={classItem.description}
-        teacher={classItem.teacher}
-        students={classItem.students}
-        classCode={classItem.classCode}
+        data={classItem}
         toggleMenu={toggleMenu}
         menuRef={menuRef}
         setMenuPosition={setMenuPosition}
@@ -152,6 +109,7 @@ function Classsromms() {
       />
     ))}
   </div>
+
   )
 }
 
