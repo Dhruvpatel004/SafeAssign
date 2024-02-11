@@ -144,7 +144,7 @@ const joinClassroom = async (req, res) => {
             userRole: "student"
         }
       
-        console.log(classroomDetail);
+       
         return res.status(200).json(classroomDetail);
     } catch (error) {
         console.log(error);

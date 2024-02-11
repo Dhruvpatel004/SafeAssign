@@ -31,9 +31,7 @@ const ClassActionMenuButton = () => {
       }
     );
     const newClassData = response.data;
-    console.log("hii");
-    // console.log(newClassData);
-    console.log(newClassData);
+
     dispatch(addClassData(newClassData));
     setShowJoinClass(false);
     setClassCode("");
