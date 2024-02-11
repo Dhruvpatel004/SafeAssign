@@ -22,7 +22,19 @@ const createClassroom = async (req, res) => {
         });
         await classroom.save();
         await userRole.save();
-        res.status(201).json(classroom);
+        const classroomDetail = {
+            _id: classroom._id,
+            classroomName: classroom.className,
+            classroomID: classroom._id,
+            subject: classroom.subject,
+            batch: classroom.batch,
+            isArchived: userRole.isArchived,
+            ownerName: req.user.userName,
+            ownerEmail: req.user.email,
+            ownerAvatar: req.user.avatar,
+            userRole: "teacher"
+        }
+        res.status(201).json(classroomDetail);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
@@ -67,7 +79,7 @@ const getJoinedClass = async (req, res) => {
             },
             {
                 $project: {
-                    "_id": 0, // Optionally exclude the _id field
+                    "_id": "$classroomDetails.classroomID", // Optionally exclude the _id field
                     "classroomName": "$classroomDetails.className",
                     "classroomID": "$classroomDetails._id",
                     "subject": "$classroomDetails.subject",
@@ -114,9 +126,26 @@ const joinClassroom = async (req, res) => {
             classroom: classCode,
             role: "student"
         });
-
+        
         await userRole.save();
-        return res.status(200).json(userRole);
+
+        const ownerDetails = await User.findOne({ _id: classroom.owner });
+
+        const classroomDetail = {
+            _id: classroom._id,
+            classroomName: classroom.className,
+            classroomID: classroom._id,
+            subject: classroom.subject,
+            batch: classroom.batch,
+            isArchived: userRole.isArchived,
+            ownerName: ownerDetails.userName,
+            ownerEmail: ownerDetails.email,
+            ownerAvatar: ownerDetails.avatar,
+            userRole: "student"
+        }
+      
+        console.log(classroomDetail);
+        return res.status(200).json(classroomDetail);
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: error.message });

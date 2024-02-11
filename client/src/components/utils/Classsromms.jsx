@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import GoogleClassroomCard from "./GoogleClassroomCard";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { setClassData } from '../../store/slice/classReducer';
@@ -10,37 +9,8 @@ function Classsromms() {
 
   const dispatch = useDispatch();
   const classData = useSelector(state => state.class.classData);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-    const menuRef = useRef(null);
 
-    const [actionClass, setActionClass] = useState(null)
-
-  const toggleMenu = (e,index) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    setActionClass(index);
-
-    // Update the state with the calculated coordinates
-    setMenuPosition({ x, y });
-    e.stopPropagation();
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuRef]);
 
 
 
@@ -54,9 +24,9 @@ function Classsromms() {
 
           });
         // Set user details in state
-        console.log(response.data);
+    
         dispatch(setClassData(response.data))
-        console.log(classData);
+      
 
       } catch (error) {
         console.error('Error fetching user details:', error);
@@ -69,48 +39,12 @@ function Classsromms() {
 
   return (
    
-    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
-    {isMenuOpen && (
-      <div
-        className="z-50 absolute  mt-2 w-30 bg-white rounded shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
-     
-        style={{ top: menuPosition.y, right: window.innerWidth - menuPosition.x }}
-      >
-        <ul className="py-1" role="none">
-          <li>
-            <div
-              to="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white hover:cursor-pointer"
-              role="menuitem"
-              onClick={console.log(`Archived${actionClass}`)}
-            >
-              Archive
-            </div>
-          </li>
-          <li>
-            <div
-              to="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white hover:cursor-pointer"
-              role="menuitem"
-              onClick={console.log(`Unenroll ${actionClass}`)}
-            >
-              Unenroll
-            </div>
-          </li>
-
-        </ul>
-      </div>
-    )}
-  
-  
-    {classData.map((classItem, index) => (
+    <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">  
+    
+    {classData.map((classItem) => (
       <GoogleClassroomCard
         key={classItem.classroomID}
         data={classItem}
-        toggleMenu={toggleMenu}
-        menuRef={menuRef}
-        setMenuPosition={setMenuPosition}
-        setActionClass={setActionClass}
       />
     ))}
   </div>

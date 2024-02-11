@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addClassData } from '../../store/slice/classReducer';
 
 const ClassActionMenuButton = () => {
   const menuRef = useRef(null);
@@ -10,6 +12,7 @@ const ClassActionMenuButton = () => {
   const [className, setClassName] = useState("");
   const [subject, setSubject] = useState("");
   const [batch, setBatch] = useState("");
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,8 +30,13 @@ const ClassActionMenuButton = () => {
         withCredentials: true,
       }
     );
-    console.log(response);
+    const newClassData = response.data;
+    console.log("hii");
+    // console.log(newClassData);
+    console.log(newClassData);
+    dispatch(addClassData(newClassData));
     setShowJoinClass(false);
+    setClassCode("");
   };
 
   const handleCreateClass = async (e) => {
@@ -45,8 +53,13 @@ const ClassActionMenuButton = () => {
         withCredentials: true,
       }
     );
-    console.log(response);
+
+    const newClassData = response.data;
+    dispatch(addClassData(newClassData));
     setShowCreateClass(false);
+    setClassName("");
+    setSubject("");
+    setBatch("");
   };
 
   const handleJoinClassCancel = () => {
