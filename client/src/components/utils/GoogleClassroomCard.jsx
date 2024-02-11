@@ -48,8 +48,8 @@ const GoogleClassroomCard = ({ data,index,menuRef,toggleMenu}) => {
         <br />
         <br />
         <br />
-       <p >Class Code : {data.classroomID}</p>
-       <p>Role :{data.userRole}</p>
+       <p className="text-gray-700 hover:bg-gray-300 dark:text-gray-300">Class Code : {data.classroomID}</p>
+       <p className="text-gray-700 hover:bg-gray-300 dark:text-gray-300">Role :{data.userRole}</p>
       </div>
     </div>
   );
