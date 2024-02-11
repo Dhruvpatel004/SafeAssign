@@ -30,8 +30,6 @@ const createClassroom = async (req, res) => {
 
 const getJoinedClass = async (req, res) => {
     try {
-        const userId = req.user._id;
-
         const pipeline = [
             {
                 $match: {
