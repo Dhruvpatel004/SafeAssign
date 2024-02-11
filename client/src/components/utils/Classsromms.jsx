@@ -2,10 +2,14 @@ import React, { useRef, useState, useEffect } from "react";
 import GoogleClassroomCard from "./GoogleClassroomCard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setClassData } from '../../store/slice/classReducer';
 
 
 function Classsromms() {
+
+  const dispatch = useDispatch();
+  const classData = useSelector(state => state.class.classData);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
@@ -38,8 +42,7 @@ function Classsromms() {
     };
   }, [menuRef]);
 
- 
-  const [classData, setClassData] = useState([]);
+
 
   useEffect(() => {
     // Function to fetch user details
@@ -48,10 +51,13 @@ function Classsromms() {
         // Make a GET request to the API endpoint using Axios
         const response = await axios.get(`${API_BASE_URL}/api/dashboard/getJoinedClass`, {
             withCredentials: true,
+
           });
         // Set user details in state
-        setClassData(response.data);
-  console.log(response.data);
+        console.log(response.data);
+        dispatch(setClassData(response.data))
+        console.log(classData);
+
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
@@ -100,7 +106,6 @@ function Classsromms() {
     {classData.map((classItem, index) => (
       <GoogleClassroomCard
         key={classItem.classroomID}
-        index={index}
         data={classItem}
         toggleMenu={toggleMenu}
         menuRef={menuRef}
