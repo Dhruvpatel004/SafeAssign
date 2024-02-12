@@ -41,11 +41,11 @@ function Message() {
         <Text />
       {/* //image component */}
       
-
+    <Img />
+    {/* pdf component */}
     <Pdf />
   
 
-    <Img />
 
       <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Delivered</span>
    </div>

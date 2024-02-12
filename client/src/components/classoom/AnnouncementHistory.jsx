@@ -10,6 +10,8 @@ function AnnouncementHistory() {
     <div class="p-2 mt-5 mx-auto max-w-[1100px] text-left bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 relative">
 
     <Message/>
+    <Message/>
+
     {/* <Message/> */}
 
     {/* <Message/> */}

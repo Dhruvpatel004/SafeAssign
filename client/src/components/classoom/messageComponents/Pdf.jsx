@@ -27,7 +27,7 @@ function Pdf() {
 
 
   return (
-    <div className="flex flex-col w-full max-w-[300px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+    <div className="flex flex-col w-full max-w-[700px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
             {pdfLinks.slice(0, showAllPdf ? pdfLinks.length : 3).map((url, index) => (
         <div className={`flex items-start bg-gray-50 dark:bg-gray-600 rounded-xl p-2 mb-2`} key={index}>
           <div className="me-2">

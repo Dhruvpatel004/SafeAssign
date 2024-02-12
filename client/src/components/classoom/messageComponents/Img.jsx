@@ -57,9 +57,9 @@ function Img() {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-[450px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+    <div className="flex flex-col w-full max-w-[700px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
               {selectedImage && (
-        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-75 z-50" onClick={handleCloseImage}>
+        <div className="absolute  w-auto h-auto flex justify-center items-center bg-black bg-opacity-75 z-50" onClick={handleCloseImage}>
           <img src={selectedImage} alt="Selected" className="max-h-full max-w-full" />
           <button className="absolute top-4 right-4 text-white hover:text-gray-200" onClick={handleCloseImage}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
