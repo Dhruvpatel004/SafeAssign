@@ -2,11 +2,23 @@ import React from "react";
 import "./classa.css";
 import img_bookclub from "../../assets/img_bookclub.jpg";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setClassData } from "../../store/slice/classReducer";
 
 const GoogleClassroomCard = ({ data, index, menuRef, toggleMenu }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClasss = () => {
+    const classDetail={
+      classroomID:data.classroomID,
+      classroomName:data.classroomName,
+      ownerName:data.ownerName,
+      ownerAvatar:data.ownerAvatar,
+      userRole:data.userRole
+
+    }
+    dispatch(setClassData(classDetail));
     navigate("c/");
   };
 
