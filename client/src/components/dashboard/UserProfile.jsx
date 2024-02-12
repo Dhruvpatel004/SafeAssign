@@ -80,7 +80,7 @@ function UserProfile({ user }) {
           </div>
           {isProfileOpen && (
             <div
-              className="z-50 absolute top-full right-0 mt-2 w-48 bg-white rounded shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
+              className="z-100 absolute top-full right-0 mt-2 w-48 bg-white rounded shadow-md dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
               id="dropdown-user"
             >
               <div className="px-4 py-3" role="none">

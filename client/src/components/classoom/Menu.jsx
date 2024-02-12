@@ -14,7 +14,7 @@ function Menubar() {
   const isLargeScreen = window.innerWidth > 768; // Define the breakpoint for large screens
 
   return (
-    <div className="sticky pt-1 z-50 bg-white dark:bg-gray-800 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700" style={{ ...customStyles, ...(isLargeScreen && largeScreenStyles) }}>
+    <div className="sticky pt-1 z-40 bg-white dark:bg-gray-800 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700" style={{ ...customStyles, ...(isLargeScreen && largeScreenStyles) }}>
       <ul className="flex flex-wrap justify-evenly">
         <li className="me-2">
           <Link
