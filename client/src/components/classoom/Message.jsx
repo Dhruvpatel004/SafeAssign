@@ -3,6 +3,7 @@ import googleLogo from "../../assets/img/google.png";
 import Text from "./messageComponents/Text.jsx";
 import Pdf from './messageComponents/Pdf.jsx';
 import Img from './messageComponents/Img.jsx';
+import Url from './messageComponents/Url.jsx';
 
 function Message() {
 
@@ -37,6 +38,7 @@ function Message() {
          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">11:46</span>
       </div>
 
+
       {/* //text component */}
         <Text />
       {/* //image component */}
@@ -44,6 +46,7 @@ function Message() {
     <Img />
     {/* pdf component */}
     <Pdf />
+      <Url />
   
 
 
