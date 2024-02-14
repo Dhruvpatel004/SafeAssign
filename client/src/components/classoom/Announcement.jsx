@@ -1,39 +1,21 @@
 import React, { useState } from 'react'
 import googleLogo from "../../assets/img/google.png";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import 'react-quill/dist/quill.bubble.css';
+import { Editor } from '@tinymce/tinymce-react';
 
 
 function Announcement() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [announcementContent, setAnnouncementContent] = useState('');
 
+  const handleEditorChange = (content, editor) => {
+    setAnnouncementContent(content)
+  };
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const modules = {
-    toolbar: [
-      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-      [{size: []}],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, 
-       {'indent': '-1'}, {'indent': '+1'}],
-      ['link', 'image', 'video'],
-      ['clean']
-    ],
-    clipboard: {
-      matchVisual: true,
-    },
-  };
 
-  const formats = [
-    'header', 'font', 'size',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
-    'list', 'bullet', 'indent',
-    'link', 'image', 'video'
-  ];
 
   return (
 
@@ -52,15 +34,30 @@ function Announcement() {
         }
         {
           isDropdownOpen && (<>
-                        <ReactQuill
-                        theme="snow"
-                value={announcementContent}
-                onChange={setAnnouncementContent}
-                modules={modules}
-                formats={formats}
-                placeholder="Write something here..."
-              
-              />
+          <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}> 
+
+<Editor
+        apiKey="lypi899eajuaveky9npx24ytyulm2cceqx4k4nxwqu7h5hin"
+        initialValue="<p>Write something...</p>"
+        init={{
+          // height: 500,
+          // width: '800', // Set the width of the editor to 100%
+          menubar: true,
+          plugins: [
+            'advlist autolink lists link image',
+            'charmap print preview anchor help',
+            'searchreplace visualblocks code',
+            'insertdatetime media table paste wordcount'
+          ],
+          toolbar:
+            'undo redo | formatselect | bold italic | \
+            alignleft aligncenter alignright | \
+            bullist numlist outdent indent | image | youtube'
+        }}
+        onEditorChange={handleEditorChange}
+      />
+    </div>
+
           </>)
         }
         
