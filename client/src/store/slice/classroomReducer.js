@@ -20,13 +20,22 @@ const classroomSlice = createSlice({
     name: "classroom",
     initialState,
     reducers: {
-        setClassDetails(state, action) {
-            state.classID = action.payload.classroomID;
-            state.classCode = action.payload.classroomID;
-            state.className = action.payload.classroomName;
-            state.userRole = action.payload.userRole;
-            state.ownerName = action.payload.ownerName;
-            state.ownerAvatar = action.payload.ownerAvatar;
+        setClassDetails: (state, action) => {
+            const {
+                classID,
+                classCode,
+                className,
+                userRole,
+                ownerName,
+                ownerAvatar
+            } = action.payload;
+
+            state.classID = classID;
+            state.classCode = classCode;
+            state.className = className;
+            state.userRole = userRole;
+            state.ownerName = ownerName;
+            state.ownerAvatar = ownerAvatar;
         },
         setClassStudents(state, action) {
             state.students = action.payload;
