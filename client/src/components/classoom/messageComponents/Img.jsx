@@ -21,21 +21,14 @@ function Img({img}) {
   };
 
 
-  const handleDownloadImgClick = (e,url) => {
-    // Logic to download the image
-    // For example, you can use the following code to trigger a download
+  const handleDownloadImgClick = (e, url) => {
     e.stopPropagation();
-    const openLink = document.createElement('a');
-    openLink.href = url;
-    openLink.setAttribute('target', '_blank'); // Open in new tab
-
-    // Trigger the opening of the image
-    document.body.appendChild(openLink);
-    openLink.click();
-
-    // Clean up
-    document.body.removeChild(openLink);
-  };
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.target = '_blank';
+    anchor.download = url.substring(url.lastIndexOf('/') + 1); // Set the filename
+    anchor.click();
+};
 
   const handleShowAllImages = () => {
     console.log(img);
@@ -66,7 +59,7 @@ function Img({img}) {
     <div className="flex flex-col w-full max-w-[700px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
               {selectedImage && (
         <div className="absolute  w-auto h-auto flex justify-center items-center bg-black bg-opacity-75 z-50" onClick={handleCloseImage}>
-          <img src={selectedImage} alt="Selected" className=" max-w-full" style={{maxWidth:'60vw'}}/>
+          <img src={selectedImage} alt="Selected" className=" max-w-full" style={{maxWidth:'60vw',maxHeight:'50vh'}}/>
           <button className="absolute top-4 right-4 text-white hover:text-gray-200" onClick={handleCloseImage}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -95,12 +88,12 @@ function Img({img}) {
         <button onClick={showAllImages ? handleHideAllImages : handleShowAllImages} className="text-sm text-blue-700 dark:text-blue-500 font-medium inline-flex items-center hover:underline">
           {showAllImages ? 'Hide all' : 'Show all'}
         </button>
-        <button onClick={handleSaveAllImages} className="text-sm text-blue-700 dark:text-blue-500 font-medium inline-flex items-center hover:underline">
+        {/* <button onClick={handleSaveAllImages} className="text-sm text-blue-700 dark:text-blue-500 font-medium inline-flex items-center hover:underline">
           <svg className="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
           </svg>
           Save all
-        </button>
+        </button> */}
       </div>
     </div>
   );
