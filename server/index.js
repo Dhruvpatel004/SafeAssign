@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 import './config/db.js';
 import passport from './config/passport-setup.js';
 import isAuthenticated from './middleware/authMiddleware.js';
+import multer from "multer";
+// import path from 'path';
+
 
 // Load environment variables
 dotenv.config();
@@ -16,7 +19,8 @@ const app = express();
 // Apply CORS middleware with options
 const corsOptions = {
   origin: 'http://localhost:5173',
-  credentials: true // Allow cookies to be sent with requests
+  credentials: true // Allow cookies to be sent with requests,
+  
 };
 app.use(cors(corsOptions));
 
@@ -24,7 +28,10 @@ app.use(cors(corsOptions));
 const { APP_PORT, CLIENT_URL } = process.env;
 
 // Body parsing middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '1gb' }));
+
+// Parse url-encoded request bodies
+app.use(express.urlencoded({ limit: '1gb', extended: true }));
 
 // Setup session
 app.use(session({
@@ -39,11 +46,18 @@ app.use(passport.session());
 
 
 
-app.use(express.json());
+// Serve static files
+// const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 import dashbordRutes from './routes/dashbord.routes.js';
+import classroomRoutes from './routes/classroom.routes.js';
+import upload from "./multer.js";
 
 app.use("/api/dashboard", dashbordRutes);
+app.use("/api/classroom", classroomRoutes);
 
 // Route for User Login And registration with Google OAuth
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
@@ -67,6 +81,7 @@ app.get("/api/user-details", isAuthenticated, function (req, res) {
   res.json({ user: req.user });
 });
 
+
 // Route to logout user if logged in
 app.get("/logout", isAuthenticated, (req, res,next) => {
   req.logout(function (err) {
@@ -78,6 +93,12 @@ app.get("/logout", isAuthenticated, (req, res,next) => {
     res.json({ status: "success", message: "Logout successful" });
   });
 });
+
+app.post('/api/upload', upload.array('files'), (req, res) => {
+  // 'files' should match the name attribute in your form
+  res.send('Files uploaded successfully');
+});
+
 
 // Start the server
 app.listen(APP_PORT, () => {

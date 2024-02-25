@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import googleLogo from "../../assets/img/google.png";
 import { Editor } from '@tinymce/tinymce-react';
+import TextBoxEditor from './AnnoucementBox';
+import AnnouncementBox from './AnnoucementBox';
 
 
 function Announcement() {
@@ -22,7 +24,8 @@ function Announcement() {
     <div class="mt-5 mx-auto max-w-[1100px] text-left bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 relative">
 
     <div className="flex items-center p-2">
-      <img className="w-8 h-8 rounded-full" src={googleLogo} alt="User" />
+    
+    <img class="w-8 h-8 rounded-full" src={googleLogo} alt="Jese image"/>
 
       <div className="ml-5"  >
         {
@@ -34,7 +37,7 @@ function Announcement() {
         }
         {
           isDropdownOpen && (<>
-          <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}> 
+          {/* <div style={{ maxWidth: '800px', width: '100%', margin: '0 auto' }}> 
 
 <Editor
         apiKey="lypi899eajuaveky9npx24ytyulm2cceqx4k4nxwqu7h5hin"
@@ -55,9 +58,10 @@ function Announcement() {
             bullist numlist outdent indent | image | youtube'
         }}
         onEditorChange={handleEditorChange}
-      />
-    </div>
+      /> */}
+    {/* </div> */}
 
+          <AnnouncementBox />
           </>)
         }
         

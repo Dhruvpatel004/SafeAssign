@@ -3,7 +3,8 @@ import "./classa.css";
 import img_bookclub from "../../assets/img_bookclub.jpg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setClassData } from "../../store/slice/classReducer";
+// import { setClassData } from "../../store/slice/classReducer";
+import { setClassDetails } from "../../store/slice/classroomReducer";
 
 const GoogleClassroomCard = ({ data, index, menuRef, toggleMenu }) => {
   const navigate = useNavigate();
@@ -11,14 +12,15 @@ const GoogleClassroomCard = ({ data, index, menuRef, toggleMenu }) => {
 
   const handleClasss = () => {
     const classDetail={
-      classroomID:data.classroomID,
-      classroomName:data.classroomName,
-      ownerName:data.ownerName,
-      ownerAvatar:data.ownerAvatar,
-      userRole:data.userRole
-
+      className: data.classroomName,
+      classID: data.classroomID,
+      classCode: data.classroomID,
+      userRole: data.userRole,
+      ownerName: data.ownerName,
+      ownerAvatar: data.ownerAvatar,
     }
-    dispatch(setClassData(classDetail));
+    console.log(classDetail);
+    dispatch(setClassDetails(classDetail));
     navigate("c/");
   };
 
