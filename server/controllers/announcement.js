@@ -11,8 +11,9 @@ const addAnnouncement = async (req, res) => {
     try {
         const { classroomID, text, urls } = req.body;
 
-        console.log(req.body);
+        // console.log(req.body);
         const user = req.user; // Assuming req.user contains the user object
+  
 
         // Check if the user has access to the classroom
         const userRole = await UserRole.findOne({ user, classroom: classroomID });
@@ -59,7 +60,7 @@ const addAnnouncement = async (req, res) => {
 
         const newAnnouncement = new Announcement({
             postedIn: classroomID,
-            text: text,
+            text: text? text : "",
             links: urls,
             mediaImgs: uploadedImgsURL,
             mediaFiles: uploadedFilesURL,
@@ -110,6 +111,7 @@ const getAnnouncements = async (req, res) => {
         const announcements = await Announcement.find({ postedIn: classroomID })
             .populate("postedBy", "userName avatar")
             .sort({ createdAt: -1 });
+        
             res.status(200).json(announcements);
         // res.status(200).json(announcements);
     } catch (error) {

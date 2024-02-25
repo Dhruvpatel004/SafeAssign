@@ -45,7 +45,8 @@ const classroomSlice = createSlice({
         },
         
         addClassAnnouncement(state, action) {
-            state.announcements.push(action.payload);
+            state.announcements.unshift(action.payload);
+            // state.announcements.push(action.payload);
         },
         
         updateClassAnnouncement(state, action) {

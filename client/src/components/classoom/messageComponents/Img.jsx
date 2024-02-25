@@ -25,10 +25,16 @@ function Img({img}) {
     // Logic to download the image
     // For example, you can use the following code to trigger a download
     e.stopPropagation();
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = 'image.jpg';
-    anchor.click();
+    const openLink = document.createElement('a');
+    openLink.href = url;
+    openLink.setAttribute('target', '_blank'); // Open in new tab
+
+    // Trigger the opening of the image
+    document.body.appendChild(openLink);
+    openLink.click();
+
+    // Clean up
+    document.body.removeChild(openLink);
   };
 
   const handleShowAllImages = () => {
@@ -40,6 +46,8 @@ function Img({img}) {
     setShowAllImages(false);
   };
 
+  
+
   const handleSaveAllImages = () => {
     // Logic to save all images
     // For example, you can use the following code to save each image
@@ -49,7 +57,10 @@ function Img({img}) {
       anchor.download = i.fileName;
       anchor.click();
     });
+
   };
+
+  
 
   return (
     <div className="flex flex-col w-full max-w-[700px] leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">

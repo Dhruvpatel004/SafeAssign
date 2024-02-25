@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
-function Url() {
-  const url = "https://youtu.be/SXAYiX49bbc?si=WjeVWBtlliQy75zJ";
+function Url({ url}) {
+
   const [previewData, setPreviewData] = useState("");
 
   const isYouTubeURL = (url) => {
@@ -62,7 +62,7 @@ function Url() {
         <div class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
           <p class="text-sm font-normal pb-2.5 text-gray-900 dark:text-white">
             <Link
-              to="https://github.com/themesberg/flowbite"
+              to={url}
               target="_blank"
               rel="noopener noreferrer"
               class="text-blue-700 dark:text-blue-500 underline hover:no-underline font-medium break-all"
@@ -71,7 +71,7 @@ function Url() {
             </Link>
           </p>
           <Link
-            to="https://github.com/themesberg/flowbite"
+            to={url}
             target="_blank"
             rel="noopener noreferrer"
             class="bg-gray-50 dark:bg-gray-600 rounded-xl p-4 mb-2 hover:bg-gray-200 dark:hover:bg-gray-500"

@@ -138,7 +138,7 @@ function AnnouncementBox() {
                             <div className="flex flex-col">
                                 <input
                                     type="file"
-                                    accept="image/*,.pdf"
+                               
                                     onChange={handleAddFile}
                                     className="hidden"
                                     id="fileInput"
@@ -157,7 +157,7 @@ function AnnouncementBox() {
                                                     className="w-16 h-16 rounded-md mr-2"
                                                 />
                                             )}
-                                            {file.type === "application/pdf" && (
+                                            {!file.type.startsWith("image") && (
                                                 <span className="pdf-file text-blue-500 hover:underline">
                                                     {file.name}
                                                 </span>

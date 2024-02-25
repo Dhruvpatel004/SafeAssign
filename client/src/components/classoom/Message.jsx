@@ -4,10 +4,15 @@ import Text from "./messageComponents/Text.jsx";
 import Pdf from './messageComponents/Pdf.jsx';
 import Img from './messageComponents/Img.jsx';
 import Url from './messageComponents/Url.jsx';
+import IndiaTime from './messageComponents/indiaTime.jsx';
+import { useSelector } from 'react-redux';
+
+
 
 function Message({announcement}) {
 
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+        const userRole= useSelector(state =>state.classroom.userRole)
         const dropdownRef = useRef(null);
 
         const toggleDropdown = () => {
@@ -27,15 +32,17 @@ function Message({announcement}) {
               document.removeEventListener('mousedown', handleClickOutside);
             };
           }, []);
+          
 
   return (
   
 <div class="mt-5 flex items-start gap-2.5">
-   <img class="w-8 h-8 rounded-full" src={googleLogo} alt="Jese image"/>
+   <img class="w-8 h-8 rounded-full" src={announcement.postedBy.avatar} alt="Jese image"/>
    <div class="flex flex-col gap-1 w-full max-w-[700px]">
       <div class="flex items-center space-x-2 rtl:space-x-reverse">
          <span class="text-sm font-semibold text-gray-900 dark:text-white">{announcement.postedBy.userName}</span>
-         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">{announcement.updatedAt}</span>
+         {}
+         <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> <IndiaTime timeString={announcement.updatedAt}/></span>
       </div>
 
 
@@ -53,9 +60,14 @@ function Message({announcement}) {
         announcement.mediaFiles.length > 0 && <Pdf pdf={announcement.mediaFiles}/>
       }
       {/* //url component */}
-      {
-        announcement.links > 0 && <Url url={announcement.links}/>
-      }
+    
+      {announcement.links?.map((url, index) => (
+        // console.log(url);
+        <Url url={url} key={index} />
+      ))}
+      
+
+ 
       
  
   
@@ -76,9 +88,13 @@ function Message({announcement}) {
               <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Copy</a>
             </li>
         
-            <li>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-            </li>
+        {
+          userRole === "teacher"  && (  <li>
+            <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+          </li>)
+        }
+
+          
           </ul>
         </div>
       )}
