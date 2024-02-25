@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import classroom from "./C";
+import { useSelector,useDispatch } from "react-redux";
+import { addClassAnouncement,  } from "../../store/slice/classroomReducer"; 
+
 
 function AnnouncementBox() {
     const [files, setFiles] = useState([]);
@@ -9,9 +10,10 @@ function AnnouncementBox() {
     const [text, setText] = useState("");
     const [isDraggingOver, setIsDraggingOver] = useState(false);
 
+
     const textareaRef = useRef(null);
 
-    const classroomID = useSelector(state => state.classroom.classroomID);
+    const classroomID = useSelector(state =>state.classroom.classID);
 
     useEffect(() => {
         adjustHeight();
@@ -77,12 +79,12 @@ function AnnouncementBox() {
             const formData = new FormData();
             formData.append("text", text);
             formData.append("classroomID", classroomID);
-            formData.append("urls", JSON.stringify(links));
+            formData.append("urls", links);
             files.forEach((file) => {
                 formData.append("files", file);
             });
 
-            console.log(formData)
+            // console.log(formData)
 
             const result = await axios.post(`${API_BASE_URL}/api/classroom/add-announcement`, formData, {
                 withCredentials: true,
@@ -90,6 +92,8 @@ function AnnouncementBox() {
                     "Content-Type": "multipart/form-data",
                 },
             });
+
+            // useDispatch(addClassAnouncement(result.data));
             console.log(result.data);
         } catch (error) {
             console.error("Error:", error);
@@ -125,12 +129,12 @@ function AnnouncementBox() {
                                 id="fileInput"
                                 multiple
                             />
-                            <label
+                            {/* <label
                                 htmlFor="fileInput"
                                 className="upload-label cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mb-2"
                             >
                                 Upload File
-                            </label>
+                            </label> */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {files.map((file, index) => (
                                     <div

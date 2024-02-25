@@ -7,11 +7,11 @@ const announcementSchema = new Schema({
   },
 
   links: {
-    type: [String],
+    type: [],
     default: []
   },
   mediaFiles: {
-    type: [String],
+    type: [],
     default: []
   },
  
@@ -28,4 +28,7 @@ const announcementSchema = new Schema({
 
 },{timestamps:true});
 
-export default model('Announcement', announcementSchema);
+const Announcement = new model("Announcement",announcementSchema);
+
+export default Announcement;
+
