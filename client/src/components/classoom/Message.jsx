@@ -5,7 +5,7 @@ import Pdf from './messageComponents/Pdf.jsx';
 import Img from './messageComponents/Img.jsx';
 import Url from './messageComponents/Url.jsx';
 
-function Message() {
+function Message({announcement}) {
 
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
         const dropdownRef = useRef(null);
@@ -34,23 +34,34 @@ function Message() {
    <img class="w-8 h-8 rounded-full" src={googleLogo} alt="Jese image"/>
    <div class="flex flex-col gap-1 w-full max-w-[700px]">
       <div class="flex items-center space-x-2 rtl:space-x-reverse">
-         <span class="text-sm font-semibold text-gray-900 dark:text-white">Bonnie Green</span>
-         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">11:46</span>
+         <span class="text-sm font-semibold text-gray-900 dark:text-white">{announcement.postedBy.userName}</span>
+         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">{announcement.updatedAt}</span>
       </div>
 
 
       {/* //text component */}
-        <Text />
+      {
+        announcement.text && <Text text={announcement.text}/>
+      }
+     
       {/* //image component */}
+      {
+        announcement.mediaImgs.length > 0 && <Img img={announcement.mediaImgs}/>
+      }
+      {/* //pdf component */}
+      {
+        announcement.mediaFiles.length > 0 && <Pdf pdf={announcement.mediaFiles}/>
+      }
+      {/* //url component */}
+      {
+        announcement.links > 0 && <Url url={announcement.links}/>
+      }
       
-    <Img />
-    {/* pdf component */}
-    <Pdf />
-      <Url />
+ 
   
 
 
-      <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Delivered</span>
+      {/* <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Delivered</span> */}
    </div>
    <div className="relative inline-block" ref={dropdownRef}>
       <button id="dropdownMenuIconButton" onClick={toggleDropdown} className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600" type="button">
@@ -64,7 +75,7 @@ function Message() {
             <li>
               <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Copy</a>
             </li>
-
+        
             <li>
               <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
             </li>

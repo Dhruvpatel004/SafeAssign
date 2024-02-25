@@ -7,11 +7,7 @@ const initialState = {
     userRole: "",
     ownerName: "",
     ownerAvatar: "",
-    students: [],
-    teachers: [],
-    anouncements: [],
-    assignments: [],
-    materials: [],
+    announcements: [],
     loading: false,
     error: null,
 };
@@ -37,79 +33,36 @@ const classroomSlice = createSlice({
             state.ownerName = ownerName;
             state.ownerAvatar = ownerAvatar;
         },
-        setClassStudents(state, action) {
-            state.students = action.payload;
-        },
-        setClassTeachers(state, action) {
-            state.teachers = action.payload;
-        },
-        updateStudentToTeacher(state, action) {
-            state.teachers.push(action.payload);
-            state.students = state.students.filter((student) => student._id !== action.payload._id);
-        },
-        updateTeacherToStudent(state, action) {
-            state.students.push(action.payload);
-            state.teachers = state.teachers.filter((teacher) => teacher._id !== action.payload._id);
-        },
-        removeStudent(state, action) {
-            state.students = state.students.filter((student) => student._id !== action.payload);
-        },
-        removeTeacher(state, action) {
-            state.teachers = state.teachers.filter((teacher) => teacher._id !== action.payload);
+   
+        setClassAnnouncements(state, action) {
+            state.announcements = action.payload;
+            state.loading = false;
+            state.error = null;
         },
         
-        setClassAnouncements(state, action) {
-            state.anouncements = action.payload;
+        removeClassAnnouncement(state, action) {
+            state.announcements = state.announcements.filter((announcement) => announcement._id !== action.payload);
         },
-        removeClassAnouncement(state, action) {
-            state.anouncements = state.anouncements.filter((anouncement) => anouncement._id !== action.payload);
+        
+        addClassAnnouncement(state, action) {
+            state.announcements.push(action.payload);
         },
-        addClassAnouncement(state, action) {
-            state.anouncements.push(action.payload);
-        },
-        updateClassAnouncement(state, action) {
-            const updatedAnouncement = action.payload;
-            state.anouncements = state.anouncements.map((anouncement) =>
-                anouncement._id === updatedAnouncement._id ? updatedAnouncement : anouncement
+        
+        updateClassAnnouncement(state, action) {
+            const updatedAnnouncement = action.payload;
+            state.announcements = state.announcements.map((announcement) =>
+                announcement._id === updatedAnnouncement._id ? updatedAnnouncement : announcement
             );
         },
-
-        setClassAssignments(state, action) {
-            state.assignments = action.payload;
-        },
-        removeClassAssignment(state, action) {
-            state.assignments = state.assignments.filter((assignment) => assignment._id !== action.payload);
-        },
-        addClassAssignment(state, action) {
-            state.assignments.push(action.payload);
-        },
-        updateClassAssignment(state, action) {
-            const updatedAssignment = action.payload;
-            state.assignments = state.assignments.map((assignment) =>
-                assignment._id === updatedAssignment._id ? updatedAssignment : assignment
-            );
-        },
-        
-        
     },
 });
 
 export const {
     setClassDetails,
-    setClassStudents,
-    setClassTeachers,
-    updateStudentToTeacher,
-    updateTeacherToStudent,
-    removeStudent,
-    removeTeacher,
-    setClassAnouncements,
-    removeClassAnouncement,
-    addClassAnouncement,
-    updateClassAnouncement,
-    setClassAssignments,
-    removeClassAssignment,
-    addClassAssignment,
-    updateClassAssignment,
+    setClassAnnouncements,
+    removeClassAnnouncement,
+    addClassAnnouncement,
+    updateClassAnnouncement,
 } = classroomSlice.actions;
 
 export default classroomSlice.reducer;

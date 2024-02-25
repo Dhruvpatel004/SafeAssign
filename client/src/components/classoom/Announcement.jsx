@@ -30,7 +30,7 @@ function Announcement() {
       <div className="ml-5"  >
         {
           !isDropdownOpen && (<><h2 className="text-lg font-semibold text-gray-900 dark:text-white" onClick={toggleDropdown}>
-              Announce something to your class sd ewkfp qpke qepkp
+              Announce something to your class 
             </h2><p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Share important updates or information with your students.
               </p></>)

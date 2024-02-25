@@ -10,6 +10,10 @@ const announcementSchema = new Schema({
     type: [],
     default: []
   },
+  mediaImgs: {
+    type: [],
+    default: []
+  },
   mediaFiles: {
     type: [],
     default: []
