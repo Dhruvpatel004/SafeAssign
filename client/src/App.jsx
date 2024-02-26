@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import Classsromms from './components/utils/Classsromms';
 import User from './components/User';
+import Stream from './components/classoom/Stream';
+import Classwork from './components/classoom/Classwork';
+import People from './components/classoom/People';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,20 @@ const router = createBrowserRouter([
       {
         path: "c/",
         element: <C/>,
+        children: [
+          {
+            path: "classwork/",
+            element: <Classwork/>,
+          },
+          {
+            path: "people/",
+            element: <People/>,
+          },
+          {
+            path: "",
+            element: <Stream/>,
+          },
+        ]
       },
       {
         path: "user/",

@@ -4,6 +4,7 @@ import Title from "./Title";
 import Announcement from "./Announcement";
 import AnnouncementHistory from "./AnnouncementHistory";
 import AnnouncementForm from "./AnnouncementForm";
+import { Outlet } from "react-router-dom";
 
 
 
@@ -12,12 +13,7 @@ function classroom() {
     <>
       <Menubar />
 
-      <Title />
-
-      <Announcement />
-
-{/* <AnnouncementForm/> */}
-    <AnnouncementHistory/>
+<Outlet />
 
 
     </>
