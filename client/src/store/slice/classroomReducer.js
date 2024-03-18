@@ -8,6 +8,8 @@ const initialState = {
     ownerName: "",
     ownerAvatar: "",
     announcements: [],
+    students:[],
+    teachers:[],
     loading: false,
     error: null,
 };
@@ -55,6 +57,14 @@ const classroomSlice = createSlice({
                 announcement._id === updatedAnnouncement._id ? updatedAnnouncement : announcement
             );
         },
+
+        setStudents(state,action){
+            state.students = action.payload;
+        },
+
+        setTeachers(state,action){
+            state.teachers=action.payload;
+        }
     },
 });
 
@@ -64,6 +74,8 @@ export const {
     removeClassAnnouncement,
     addClassAnnouncement,
     updateClassAnnouncement,
+    setStudents,
+    setTeachers
 } = classroomSlice.actions;
 
 export default classroomSlice.reducer;
