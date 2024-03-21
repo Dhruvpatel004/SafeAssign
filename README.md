@@ -48,7 +48,7 @@ Replace your-mongodb-url, your-client-id, and your-client-secret with the approp
 
 4. Start the server-side application::
 ```bash
-nodemon
+npm run dev
 ```
 ## Setup Flsk Api for NLP - Doc-similarity 
 1. Go to the server directory:
