@@ -62,6 +62,28 @@ const classroomSlice = createSlice({
             state.students = action.payload;
         },
 
+        promotStudent(state,action){
+            const student = state.students.find((student) => student._id === action.payload);
+            student.role = "teacher";
+            state.teachers.push(student);
+            state.students = state.students.filter((student) => student._id !== action.payload);
+        },
+
+        dePromotTeacher(state,action){
+            const student = state.students.find((student) => student._id === action.payload);
+            student.role = "student";
+        },
+        
+
+
+        removeStudentFromClass(state,action){
+            state.students = state.students.filter((student) => student._id !== action.payload);
+        },
+
+        removeTeacherFromClass(state,action){
+            state.teachers = state.teachers.filter((teacher) => teacher._id !== action.payload);
+        },
+
         setTeachers(state,action){
             state.teachers=action.payload;
         }
@@ -75,7 +97,12 @@ export const {
     addClassAnnouncement,
     updateClassAnnouncement,
     setStudents,
-    setTeachers
+    setTeachers,
+    promotStudent,
+    dePromotTeacher,
+    removeStudentFromClass,
+    removeTeacherFromClass
+
 } = classroomSlice.actions;
 
 export default classroomSlice.reducer;

@@ -11,6 +11,7 @@ router.use(isAuthenticated);
 router.route("/add-announcement").post(upload.array('files'),addAnnouncement);
 router.route("/get-announcements").post(getAnnouncements);
 router.route("/get-joined-user").post(getJoinedPepole);
+// router.route("/promot-student").post(promotStudent);
 
 
 

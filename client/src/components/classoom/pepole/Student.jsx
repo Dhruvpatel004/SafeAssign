@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// import{promoteStudent} from "../../../store/slice/classroomReducer.js";
+import { promotStudent,removeStudentFromClass} from "../../../store/slice/classroomReducer";
+
+
 
 function Student({ isSmallScreen }) {
+    const dispatch = useDispatch();
+
     const students = useSelector((state) => state.classroom.students);
     const userRole = useSelector((state) => state.classroom.userRole);
 
@@ -22,6 +29,47 @@ function Student({ isSmallScreen }) {
         setDropdownIndex(index);
         setIsDropdownOpen(!isDropdownOpen);
     };
+
+    const handlePromote=(i)=>{
+        dispatch(promotStudent(i._id));
+        console.log(i);
+        setIsDropdownOpen(false);
+    };
+
+    const handleRemove = (student) => {
+
+        useEffect(() => {
+            const fetchPeople = async () => {
+                try {
+                    const data = {
+                        classroomID: classID,
+                        studentID: student._id,
+                    };
+
+                    const response = await axios.post(
+                        `${API_BASE_URL}/api/classroom/promot-student`,
+                        data,
+                        {
+                            withCredentials: true,
+                        }
+                    );
+                    const { joinedStudents, joinedTeachers } = response.data;
+
+                    dispatch(removeStudentFromClass(student._id));
+                    setIsDropdownOpen(false);
+                }
+
+                catch (error) {
+                    console.error("Error fetching announcements:", error);
+                }
+            }
+            fetchPeople();
+        }
+        , []);
+
+    };
+
+    
 
     return (
         <div>
@@ -208,14 +256,14 @@ function Student({ isSmallScreen }) {
                                                     </div>
                                                 </button>
                                                 {/* Student options dropdown */}
-                                                {isDropdownOpen && dropdownIndex === index && (
+                                                {userRole === "teacher" && isDropdownOpen && dropdownIndex === index   && (
                                                     <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none dark:bg-gray-800 dark:border-gray-700 dark:divide-gray-700 dark:text-gray-300">
                                                         <div className="py-1">
-                                                            <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 w-full text-left">
-                                                                Option 1
+                                                            <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 w-full text-left" onClick={()=>handlePromote(student)} >
+                                                                Promote as Teacher
                                                             </button>
-                                                            <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 w-full text-left">
-                                                                Option 2
+                                                            <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 w-full text-left" onClick={()=>handleRemove(student)} >
+                                                                Remove
                                                             </button>
                                                         </div>
                                                     </div>

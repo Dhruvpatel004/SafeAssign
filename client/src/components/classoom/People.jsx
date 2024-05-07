@@ -11,6 +11,7 @@ function People() {
   const students = useSelector((state) => state.classroom.students);
   const teachers = useSelector((state) => state.classroom.teachers);
   const classID = useSelector((state) => state.classroom.classID);
+  const userRole = useSelector((state) => state.classroom.userRole);
 
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
